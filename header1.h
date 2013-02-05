@@ -23,6 +23,7 @@ BITMAP *buffer,*buffer2;
 BITMAP *back2;
 int Real_Time;
 int pl_no;
+int ai;
 //class Explosion;
 //Explosion explosions;
 

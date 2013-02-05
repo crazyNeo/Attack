@@ -169,6 +169,7 @@ void Turn_Game()
 {
     Real_Time=0;
     pl_no=2;
+    ai=1;
 
     int weapon_alive=0;
     
@@ -298,7 +299,57 @@ void Turn_Game()
               blit(buffer2,buffer,x1,y1,x2,y2,w1,h1);
            }
            else if (weapon_alive==0){
-              getinput(player+num);
+              
+              //AI PART
+              
+              if (num!=1 && ai==1){
+                 textprintf_centre_ex(screen,font,320,400,798987,-1,"AI GOING ON");                         
+                 rest(2000);
+                 Position op;
+                 Motion ai_m;
+                 float g=9.8;
+                 op.x=player[1].x;
+                 op.y=player[1].y;
+                 
+                 ai_m.mov_angl=28+rand()%8;//angle in bytes
+//                 ai_m.mov_angl=ai_m.mov_angl/128.0*M_PI;
+                 
+
+/*
+                 //int y=y1-y2;
+                 int y=op.y;
+                 int y0=player[num].y;
+                 //int x=x2-x1;
+                 int del_x=op.x-player[num].x;
+                 
+//                 ai_m.vel=100;
+                 ai_m.vel=pow(g/(y0+del_x*tan(ai_m.mov_angl/128.0*M_PI)-y)*.5,.5)*del_x/cos(ai_m.mov_angl/128.0*M_PI);
+*/
+
+
+                 int x=op.x-player[num].x;
+                 int y=-(op.y-player[num].y);
+                 
+//                                  x=20;
+//                 y=20;
+//                 ai_m.mov_angl=32;
+                 double angle=ai_m.mov_angl/128.0*M_PI;
+                 textprintf_centre_ex(screen,font,320,460,798987,-1,"x %d     y %d",x,y);                         
+                 
+//                 ai_m.vel=pow(g*x*x/(2*cos(angle)*cos(angle)*(x*tan(angle)-y)),.5);                 
+                 double de,nu;
+                 nu=g*x*x;
+                 de=2*cos(angle)*cos(angle)*(x*tan(angle)-y);
+                 ai_m.vel=pow(nu/de,.5);
+//                 player[num].crosshair.rel_pos.fac_angl=256-ai_m.mov_angl;
+                 player[num].crosshair.rel_pos.fac_angl=ai_m.mov_angl;
+                 fireweapon2(&player[num],ai_m.vel);
+                 textprintf_centre_ex(screen,font,320,420,798987,-1,"angl %d vel  ----%f---",ai_m.mov_angl, ai_m.vel);                         
+                 textprintf_centre_ex(screen,font,320,440,798987,-1,"angl %f/%f",nu, de);                         
+                 rest(2000);
+                 
+              }   
+              else  getinput(player+num);
               
               //for (int num=0;num<1;num++)
               {

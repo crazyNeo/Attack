@@ -1,4 +1,4 @@
 AIM:
 
-1.turn by turn game
--done
+1.ai
+-simplest ai done
