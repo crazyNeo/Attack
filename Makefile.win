@@ -1,30 +1,30 @@
-# Project: Project1
+# Project: attack
 # Makefile created by Dev-C++ 4.9.9.2
 
 CPP  = g++.exe -D__DEBUG__
 CC   = gcc.exe -D__DEBUG__
 WINDRES = windres.exe
 RES  = 
-OBJ  = ground.o $(RES)
-LINKOBJ  = ground.o $(RES)
+OBJ  = att_main.o $(RES)
+LINKOBJ  = att_main.o $(RES)
 LIBS =  -L"d:/Dev-Cpp/lib" -mwindows -lalleg_s -lgdi32 -lwinmm -lole32 -ldxguid -ldinput -lddraw -ldsound  -g3 
 INCS =  -I"d:/Dev-Cpp/include" 
 CXXINCS =  -I"d:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"d:/Dev-Cpp/include/c++/3.4.2/backward"  -I"d:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"d:/Dev-Cpp/include/c++/3.4.2"  -I"d:/Dev-Cpp/include" 
-BIN  = "Copy of attack.exe"
+BIN  = attack.exe
 CXXFLAGS = $(CXXINCS)   -g3
 CFLAGS = $(INCS) -ALLEGRO_STATICLINK   -g3
 RM = rm -f
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before "Copy of attack.exe" all-after
+all: all-before attack.exe all-after
 
 
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 
 $(BIN): $(OBJ)
-	$(CPP) $(LINKOBJ) -o "Copy of attack.exe" $(LIBS)
+	$(CPP) $(LINKOBJ) -o "attack.exe" $(LIBS)
 
-ground.o: ground.cpp
-	$(CPP) -c ground.cpp -o ground.o $(CXXFLAGS)
+att_main.o: att_main.cpp
+	$(CPP) -c att_main.cpp -o att_main.o $(CXXFLAGS)

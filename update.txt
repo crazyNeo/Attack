@@ -1,0 +1,4 @@
+AIM:
+
+1.turn by turn game
+-done
