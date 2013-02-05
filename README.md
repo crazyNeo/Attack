@@ -1,0 +1,2 @@
+This project has been compile in Bloodshed Dev C++ 4.9.9.2 2005. The allegro 4.2 gaming library, an opensource library was used at the time of compilation. This library can be downloaded free.
+The project file is attack.dev file.
