@@ -5,7 +5,7 @@
 #ifndef ATT_CLAS_H
 #define ATT_CLAS_H
 
-#define EXPLOSION_COUNT 5
+//#define EXPLOSION_COUNT 5
 
 #include "allegro.h"
 #include "math.h"
@@ -45,6 +45,7 @@ class Motion
 struct Exp_position{
                Position pos;
                int count;
+               int dist[2];
                Exp_position *next;
         };
         
@@ -513,6 +514,8 @@ class Homing:public Sprite2//homing missile //i will do this later
       public:
              int bounce;
              int tar_x,tar_y;
+             float v_h;
+             
       friend int weapon_collision3(Player *player,int num);         
       void update_weapon(Player *player,int num,BITMAP *dest)
       {
@@ -520,12 +523,37 @@ class Homing:public Sprite2//homing missile //i will do this later
         //int num=1;
         if (status==0)
         {     
-            int v=vel;
+//            int v=vel;
             //    float th=player[num].crosshair.rel_pos.fac_angl/128.0*M_PI;
             float th=fac_angl/128.0*M_PI;
             {
-                x2=(v*cos(th)*counter );//d*pow(-1,num);
-                y2=(-v*sin(th)*counter ) +.5*9.8*counter*counter;
+                  //homming acceleration 
+                  
+                  float hom_angl;
+                  float x_d=0;
+                  float y_d=0;
+                  if (tar_x!=x){
+                      hom_angl=atan((tar_y-y)/static_cast<float>(tar_x-x));//in rad
+                      hom_angl=hom_angl/M_PI *128;//in bit
+                      if (tar_x<x) hom_angl+=128;
+                      else if (tar_y<y) hom_angl+=256;
+                      hom_angl=256-hom_angl;
+                  }
+                  else{
+                       if (tar_y<y) hom_angl=64;
+                       else hom_angl=192;
+                  }
+                  if(v_h<10)v_h+=.25;
+                  if (vel>0) vel=vel*.99;
+                  else if (vel<5) vel=0;
+//                  x_d+=.5*v_h*cos(hom_angl);
+//                 y_d+=-.5*v_h*sin(hom_angl);
+                  x1+=.5*v_h*cos(hom_angl);
+                  y1+=-.5*v_h*sin(hom_angl);
+                  
+                x2=(vel*cos(th)*counter )    +x_d;//d*pow(-1,num);
+                //y2=(-v*sin(th)*counter ) +.5*9.8*counter*counter    +y_d;
+                y2=(-vel*sin(th)*counter )   +y_d;
                 
                 x=x2+x1-get_width()/2;
                 y=y2+y1-get_height()/2;
@@ -546,22 +574,11 @@ class Homing:public Sprite2//homing missile //i will do this later
       //rest(1000);
           
           }
-          if (weapon_collision3(player,num))
+          if (weapon_collision3(player,num) || (-5<tar_x-x && tar_x-x<5 && -5<tar_x-x && tar_x-x<5 ))
           {
-             fac_angl=rand()%120+4;//between 4 and 124
-             vel*=.2;
-             counter=0;
-             x1=x;
-             y1=y;
-             if (++bounce==3)
-             {
-                status=-1;
-                void explosion(BITMAP *bmp, int x,int y,int finalcolor);
-                //explosion(buffer2,x,y,GREEN);
-                explosions.create_explosion(x,y);
-             }
-             
-             //not here
+             //explosion(buffer2,x,y,GREEN);
+             explosions.create_explosion(x,y);
+             status=-1;
           }
           
 // SOMETHING MUST BE DONE TO REPLACE THIS
@@ -656,12 +673,14 @@ class Player:public Sprite//,public Muzzle
       
    public:
           int num;
+          int hitcount;
           int jump_ht;//jump height time
           float
            jump_vel;
           int jump_phase;//jump dir//0 up, 1 down
           int key_pres_delay;//only required for live 2 player game
-          
+          int life;
+          Position lif_pos;
           
           Binaculors binaculor;
           
@@ -673,6 +692,12 @@ class Player:public Sprite//,public Muzzle
 //          Muzzle muz;//Sprite3            
           Sprite3 crosshair;
 //          friend int weapon_collision(Player *player,int num);         
+            Player():Sprite()
+            {
+              life=100;
+              lif_pos.x=10;
+              lif_pos.y=12;
+            }
           void update_cros()
       {
             crosshair.x=x+crosshair.rel_pos.x;//+player[n].get_width();

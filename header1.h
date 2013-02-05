@@ -15,6 +15,8 @@
 #define BUFFER2_W 1500
 #define BUFFER2_H 960
 
+#define EXPLOSION_COUNT 5
+
 
 #define WINDOWSCODING// to include winalleg.h to avoid colflict with pthread.h
 

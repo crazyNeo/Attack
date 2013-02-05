@@ -15,11 +15,11 @@ void RealTime_Game()
     Real_Time=1;
     pl_no=2;
      
-    set_color_depth(32);
+    set_color_depth(16);
 //    set_gfx_mode(1,800,600,0,0);
-    set_gfx_mode(2,800,600,0,0);
+//    set_gfx_mode(2,800,600,0,0);
 //    set_gfx_mode(2,1024,768,0,0);
-//    set_gfx_mode(1,1280,960,0,0);
+    set_gfx_mode(1,1280,960,0,0);
 
     buffer=create_bitmap(SCREEN_W,SCREEN_H);
     buffer2=create_bitmap(BUFFER2_W*SCREEN_W/1280,BUFFER2_H*SCREEN_H/960);
@@ -89,7 +89,7 @@ void RealTime_Game()
 
 //       masked_stretch_blit(back2,buffer2,0,0,back2->w,back2->h,0,0,buffer2->w,buffer2->h);
        getinput(player);
-       explosions.update_explosion(buffer2);
+       updateexplosion(buffer2,player);
        update_player(player,buffer2);
 //       update_weapon(player,buffer2);
          for(int num=0;num<2;num++)
@@ -165,18 +165,17 @@ void RealTime_Game()
 }
 
 
-void Turn_Game()       
+void Turn_Game(int ai)       
 {
     Real_Time=0;
     pl_no=2;
-    ai=1;
 
     int weapon_alive=0;
     
      
     set_color_depth(32);
 //    set_gfx_mode(1,800,600,0,0);
-    set_gfx_mode(2,800,600,0,0);
+    set_gfx_mode(1,800,600,0,0);
 //    set_gfx_mode(2,1024,768,0,0);
 //    set_gfx_mode(1,1280,960,0,0);
 
@@ -293,7 +292,8 @@ void Turn_Game()
            w1=SCREEN_W-(3+2)-3-2;
            h1=(SCREEN_H-48-(48+2))-2;
            if (!weapon_alive && explosions.exp_pos!=NULL && explosions.exp_pos->count){
-              explosions.update_explosion(buffer2);
+              //explosions.update_explosion(buffer2);
+              updateexplosion(buffer2,player);
               x1=explosions.exp_pos->pos.x-SCREEN_W/2;
               y1=explosions.exp_pos->pos.y-SCREEN_H/2;
               blit(buffer2,buffer,x1,y1,x2,y2,w1,h1);

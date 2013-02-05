@@ -30,7 +30,8 @@ int main()
     srand(time(NULL));
 //    main_game();
 //    RealTime_Game();
-    Turn_Game();
+      
+    Turn_Game(1);
     destroy_bitmap(buffer);
     allegro_exit();
 }

@@ -1,0 +1,32 @@
+AIM:
+
+1.turn by turn AI
+
+//AI PART
+              /*
+              if (num!=0 && ai==1){
+                 textprintf_centre_ex(screen,font,320,400,798987,-1,"AI GOING ON");                         
+                 rest(2000);
+                 Position op;
+                 Motion ai_m;
+                 float g=9.81;
+                 op.x=player[0].x;
+                 op.y=player[0].y;
+                 
+                 ai_m.mov_angl=28+rand()%8;//angle in bytes
+//                 ai_m.mov_angl=ai_m.mov_angl/128.0*M_PI;
+                 
+                 //int y=y1-y2;
+                 int y=op.y;
+                 int y0=player[num].y;
+                 //int x=x2-x1;
+                 int del_x=op.x-player[num].x;
+                 
+                 ai_m.vel=30;
+//                 ai_m.vel=pow(g/(y0+del_x*tan(ai_m.mov_angl/128.0*M_PI)-y)*.5,.5)*del_x/cos(ai_m.mov_angl/128.0*M_PI);
+                 
+                 player[num].crosshair.rel_pos.fac_angl=256-ai_m.mov_angl;
+                 fireweapon2(&player[num],ai_m.vel);
+                 
+              }   
+              else*/

@@ -489,7 +489,6 @@ void fireweapon3(Player *player,int v)
             player->weapon3.counter=0;
             player->weapon3.bounce=0;
             player->weapon3.vel=v;
-            player->weapon3.v_h=0;
           }
           
     textprintf_ex(screen,font,23,30,1444,0,"weapon  333%f , %f ,",player->weapon3.x,player->weapon3.y);
@@ -538,8 +537,7 @@ void getinput(Player *player)
                         player[0].binaculor.status=3;
                         player[0].weapon3.tar_x=player[0].binaculor.x;
                         player[0].weapon3.tar_y=player[0].binaculor.y;
-//                        textprintf_ex(buffer2,font,player[0].weapon3.tar_x,player[0].weapon3.tar_y,1444,0,"X");
-//                        rest(2000);
+                        textprintf_ex(buffer2,font,player[0].weapon3.tar_x,player[0].weapon3.tar_y,1444,0," ");
                   }                  
               }
               else        player->key_pres_delay--;
@@ -684,7 +682,7 @@ void gameover(int i)
      rest(3000);
 }
 
-void updateexplosion(BITMAP *bmp,Player *player)//explosion and hit 
+void updateexplosion(BITMAP *bmp,Player *player)
 {    
      Exp_position *p;
      p=explosions.exp_pos;
@@ -709,9 +707,6 @@ void updateexplosion(BITMAP *bmp,Player *player)//explosion and hit
                player[n].jump_vel=FELLDOWN_V;
                player[n].jump_phase=1;  
                player[n].status=2;
-               player[n].status=3;
-               player[n].hitcount=5;
-               if (player[n].life<1) player[n].status=-1;
 //                      rest(200);
           }
         }
@@ -749,8 +744,7 @@ void update_player(Player *player,BITMAP *dest)
           */
           
 //       draw_sprite(dest,player[n].get_image(),player[n].x-player[n].get_image()->w/2,player[n].y-player[n].get_image()->h/2);
-         if (player[n].status==3 &&   player[n].hitcount--<0) player[n].status=0;
-         else if (player[n].status==2)
+         if (player[n].status==2)
          {
             update_jump(&player[n]);
          }
@@ -771,7 +765,7 @@ int weapon_collision(Player *player,int num)//is a friend
     int flag=0;
      if (player[num].weapon1.x<0 || player[num].weapon1.x>buffer2->w  || player[num].weapon1.y>buffer2->h)//out of screen
         flag=1;
-     else if (getpixel(back2,player[num].weapon1.x,player[num].weapon1.y)!=PINK && player[num].weapon1.y>=0)//hit the ground
+     else if (getpixel(back2,player[num].weapon1.x,player[num].weapon1.y)!=PINK)//hit the ground
           flag=1;
      else
      {
@@ -794,7 +788,7 @@ int weapon_collision2(Player *player,int num)//is a friend// this one should be 
      int flag=0;
      if (player[num].weapon2.x<0 || player[num].weapon2.x>buffer2->w  || player[num].weapon2.y>buffer2->h)//out of screen
         flag=1;
-     else if (getpixel(back2,player[num].weapon2.x,player[num].weapon2.y)!=PINK && player[num].weapon2.y>=0)//hit the ground
+     else if (getpixel(back2,player[num].weapon2.x,player[num].weapon2.y)!=PINK)//hit the ground
           flag=1;
      else
      {
@@ -818,7 +812,7 @@ int weapon_collision3(Player *player,int num)//is a friend// this one should be 
      int flag=0;
      if (player[num].weapon3.x<0 || player[num].weapon3.x>buffer2->w  || player[num].weapon3.y>buffer2->h)//out of screen
         flag=1;
-     else if (getpixel(back2,player[num].weapon3.x,player[num].weapon3.y)!=PINK && player[num].weapon3.y>=0)//hit the ground
+     else if (getpixel(back2,player[num].weapon3.x,player[num].weapon3.y)!=PINK)//hit the ground
           flag=1;
      else
      {

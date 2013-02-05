@@ -1,4 +1,19 @@
 AIM:
 
-1.ai
--simplest ai done
+1.life
+-100 points
+-done
+
+2. fall if no groung after explosion
+-done
+
+3.ground 200 less than the top
+done
+
+4.homing missile complete 
+-done
+
+5.weapon to not collide with sky
+-done
+
+6.animation when got hit
