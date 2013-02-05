@@ -83,18 +83,18 @@ void create_ground(BITMAP* buffer6)
     do
         {
               float d=a[k-1]-a[k-2];
-              if (d>10) d=10;
-              else if (d<-10) d=-10;
+              if (d>8) d=8;
+              else if (d<-8) d=-8;
               
 //              if (k%10!=0) a[k]=a[k-1]+d;
 //              else 
                      a[k]=a[k-1]+d+(rand()%3-1)*1.5;
               if (tr++>3) 
-                 if (a[k]<200) a[k]=200;//upper limit
+                 if (a[k]<80) a[k]=80;//upper limit
                  else if (a[k]>(buffer5->h-100)) a[k]=(buffer5->h-100);//lower limit
               
         }
-        while (a[k]>(buffer5->h-100) || a[k]<20);
+        while (a[k]>(buffer5->h-100) || a[k]<80);
         putpixel(buffer5,k*5,a[k],GREEN);  
         line(buffer5,(k-1)*5,a[k-1],k*5,a[k],GREEN);
 //        putpixel(screen,(k*5)%SCREEN_W,a[k],GREEN);  
